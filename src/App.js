@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Schedule from "./components/Schedule/Schedule";
+import { useState, useEffect } from "react";
+import Table from "./components/Table";
+import { Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState();
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const { data } = await axios.get(
+          "https://gist.githubusercontent.com/hdck007/57650c774d9631c097db855bf110a4b6/raw/58b00de2a8c06831fda2f471e1b635a90208a4be/ipl.json"
+        );
+        setData(data);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar setSearch={setSearch} />
+      <Routes>
+        <Route path="*" element={<Navigate to="/matches" replace />} />
+
+        <Route
+          path="/matches"
+          element={<Schedule setData={setData} data={data} search={search} />}
+        />
+        <Route path="/table" element={<Table data={data} />} />
+      </Routes>
     </div>
   );
 }

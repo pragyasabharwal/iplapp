@@ -1,0 +1,44 @@
+.flex-col {
+  background: #223577;
+  padding: 2em;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 6em;
+  padding-bottom: 0.5em;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-row span {
+  font-size: 20px;
+}
+
+input {
+  width: 40em;
+  border-radius: 20px;
+  padding: 0.5em;
+  border: 1px solid transparent;
+}
+
+@media only screen and (max-width: 600px) {
+  input {
+    width: 20em;
+  }
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.tabs div{
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid white;
+}
